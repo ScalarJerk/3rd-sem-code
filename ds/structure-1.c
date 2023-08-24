@@ -1,14 +1,14 @@
 /* Write a C program to define a structure
- student with the data members to store name, 
-roll no and grade of the student. 
-Also write the member functions to read, display, 
-and 
+ student with the data members to store name,
+roll no and grade of the student.
+Also write the member functions to read, display,
+and
 sort student information according to
- the roll number of the student. All the member 
+ the roll number of the student. All the member
 functions will have array of objects as arguments.
 */
-  
-  #include <stdio.h>
+
+#include <stdio.h>
 #include <string.h>
 
 #define MAX_STUDENTS 50
@@ -36,10 +36,10 @@ void readStudents(struct student students[], int numStudents) {
 // Function to display student information
 void displayStudents(struct student students[], int numStudents) {
     printf("Student Information:\n");
-    printf("%-20s %-10s %-6s\n", "Name", "Roll No", "Grade");
+    printf("%s\t %s\t %s\n", "Name", "Roll No", "Grade");
     printf("----------------------------------------------\n");
     for (int i = 0; i < numStudents; i++) {
-        printf("%-20s %-10d %-6c\n", students[i].name, students[i].rollNo, students[i].grade);
+        printf("%s %d\t %c\n", students[i].name, students[i].rollNo, students[i].grade);
     }
 }
 
@@ -64,7 +64,7 @@ int main() {
     scanf("%d", &numStudents);
 
     readStudents(students, numStudents);
-    
+
     printf("\nBefore sorting:\n");
     displayStudents(students, numStudents);
 
