@@ -1,77 +1,89 @@
-/* Write a C program to define a structure
- student with the data members to store name, 
-roll no and grade of the student. 
-Also write the member functions to read, display, 
-and 
-sort student information according to
- the roll number of the student. All the member 
-functions will have array of objects as arguments.
+/* Define a structure time with data members hour, min, sec. Write the user defined
+functions to (i) Add (ii) To find difference between two objects of class time.
+Functions take two-time objects as argument and return time object. Also write the
+display and read function.
 */
-  
-  #include <stdio.h>
+
+#include <stdio.h>
+#include<stdlib.h>
 #include <string.h>
 
-#define MAX_STUDENTS 50
+#define MAX_OBJECTS 50
 
 // Structure definition
-struct student {
-    char name[50];
-    int rollNo;
-    char grade;
+struct Time {
+    int hour;
+    int min;
+    int sec;
 };
 
-// Function to read student information
-void readStudents(struct student students[], int numStudents) {
-    for (int i = 0; i < numStudents; i++) {
-        printf("Enter details for student %d:\n", i + 1);
-        printf("Name: ");
-        scanf("%s", students[i].name);
-        printf("Roll Number: ");
-        scanf("%d", &students[i].rollNo);
-        printf("Grade: ");
-        scanf(" %c", &students[i].grade);
+// Function to take in time input
+void readTime(struct Time timeObject[]) {
+    for (int i = 0; i < 2; i++) {
+        printf("Enter details for time %d:\n", i + 1);
+        printf("Hour: ");
+        scanf("%d", &timeObject[i].hour);
+        printf("Minute: ");
+        scanf("%d", &timeObject[i].min);
+        printf("Second: ");
+        scanf(" %d", &timeObject[i].sec);
     }
 }
 
 // Function to display student information
-void displayStudents(struct student students[], int numStudents) {
-    printf("Student Information:\n");
-    printf("%-20s %-10s %-6s\n", "Name", "Roll No", "Grade");
-    printf("----------------------------------------------\n");
-    for (int i = 0; i < numStudents; i++) {
-        printf("%-20s %-10d %-6c\n", students[i].name, students[i].rollNo, students[i].grade);
+void displayTime(struct Time timeObject[]) {
+    printf("Time:\n");
+
+    for (int i = 0; i < 2; i++) {
+        printf("%d : %d : %d\n", timeObject[i].hour, timeObject[i].min, timeObject[i].sec);
     }
 }
 
-// Function to sort students by roll number using bubble sort
-void sortStudents(struct student students[], int numStudents) {
-    for (int i = 0; i < numStudents - 1; i++) {
-        for (int j = 0; j < numStudents - i - 1; j++) {
-            if (students[j].rollNo > students[j + 1].rollNo) {
-                struct student temp = students[j];
-                students[j] = students[j + 1];
-                students[j + 1] = temp;
-            }
-        }
-    }
+// Function to add two time objects
+void addTime(struct Time timeObject[]){
+    int sumHour=0,sumMin=0,sumSec=0;
+    sumHour =timeObject[1].hour+timeObject[0].hour;
+    sumMin =timeObject[1].min+timeObject[0].min;
+    sumSec =timeObject[1].sec+timeObject[0].sec;
+
+    printf("Resultant time\n");
+    printf("%d : %d : %d",sumHour,sumMin,sumSec);
+}
+
+// Function to find difference between two time objects
+void diffTime(struct Time timeObject[]) {
+    int diffHour=0,diffMin=0,diffSec=0;
+
+    diffHour =timeObject[1].hour-timeObject[0].hour;
+    diffMin =timeObject[1].min-timeObject[0].min;
+    diffSec =timeObject[1].sec-timeObject[0].sec;
+
+    printf("Resultant time\n");
+    printf("%d : %d : %d",diffHour,diffMin,diffSec);
 }
 
 int main() {
-    struct student students[MAX_STUDENTS];
-    int numStudents;
+    struct Time timeObject[MAX_OBJECTS];
 
-    printf("Enter the number of students: ");
-    scanf("%d", &numStudents);
+    readTime(timeObject);
 
-    readStudents(students, numStudents);
-    
-    printf("\nBefore sorting:\n");
-    displayStudents(students, numStudents);
+    int option;
+    printf("Choose operation\n");
+    printf("1. Add time objects\n");
+    printf("2. Subtract time objects");
+    scanf("%d",&option);
 
-    sortStudents(students, numStudents);
+    switch(option){
 
-    printf("\nAfter sorting by roll number:\n");
-    displayStudents(students, numStudents);
+    case 1:
+        addTime(timeObject);
+        break;
+    case 2:
+        diffTime(timeObject);
+        break;
+    default:
+        printf("Not available");
+    }
 
     return 0;
 }
