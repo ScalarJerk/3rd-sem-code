@@ -4,7 +4,7 @@ ii. Heap sort
 iii. Radix sort
 iv. Merge sort */
   
-  #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 // Quick Sort
