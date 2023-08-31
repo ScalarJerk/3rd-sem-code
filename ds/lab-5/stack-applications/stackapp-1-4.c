@@ -1,93 +1,103 @@
-/* Write a program to implement
- queue data structure using stack.
-*/
-  
-  #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define MAX_SIZE 100
+// Global variables
+int stack1[100], stack2[100]; // Stacks to simulate queues
+int top1 = -1, top2 = -1;     // Top pointers for the stacks
+int itemCount = 0;            // Number of elements in the queue
 
-struct Stack {
-    int top;
-    int items[MAX_SIZE];
-};
+int main()
+{
+    int choice;
+    int num;
 
-void initialize(struct Stack *stack) {
-    stack->top = -1;
-}
+    printf("\n1 - Enqueue element into queue");
+    printf("\n2 - Dequeue element from queue");
+    printf("\n3 - Display queue elements");
+    printf("\n4 - Exit");
 
-int isEmpty(struct Stack *stack) {
-    return stack->top == -1;
-}
+    initialize(); // Initialize the stacks
 
-int isFull(struct Stack *stack) {
-    return stack->top == MAX_SIZE - 1;
-}
+    do
+    {
+        printf("\nEnter choice: ");
+        scanf("%d", &choice);
 
-void push(struct Stack *stack, int item) {
-    if (isFull(stack)) {
-        printf("Stack is full. Cannot push element.\n");
-    } else {
-        stack->items[++stack->top] = item;
-    }
-}
-
-int pop(struct Stack *stack) {
-    if (isEmpty(stack)) {
-        printf("Stack is empty. Cannot pop element.\n");
-        return -1;
-    } else {
-        return stack->items[stack->top--];
-    }
-}
-
-struct Queue {
-    struct Stack s1, s2;
-};
-
-void initializeQueue(struct Queue *queue) {
-    initialize(&queue->s1);
-    initialize(&queue->s2);
-}
-
-void enqueue(struct Queue *queue, int item) {
-    if (isFull(&queue->s1)) {
-        printf("Queue is full. Cannot enqueue element.\n");
-        return;
-    }
-
-    while (!isEmpty(&queue->s1)) {
-        push(&queue->s2, pop(&queue->s1));
-    }
-
-    push(&queue->s1, item);
-
-    while (!isEmpty(&queue->s2)) {
-        push(&queue->s1, pop(&queue->s2));
-    }
-}
-
-int dequeue(struct Queue *queue) {
-    if (isEmpty(&queue->s1)) {
-        printf("Queue is empty. Cannot dequeue element.\n");
-        return -1;
-    }
-
-    return pop(&queue->s1);
-}
-
-int main() {
-    struct Queue queue;
-    initializeQueue(&queue);
-
-    enqueue(&queue, 5);
-    enqueue(&queue, 10);
-    enqueue(&queue, 15);
-
-    printf("Dequeued: %d\n", dequeue(&queue));
-    printf("Dequeued: %d\n", dequeue(&queue));
-    printf("Dequeued: %d\n", dequeue(&queue));
+        switch (choice)
+        {
+        case 1:
+            enqueue();
+            break;
+        case 2:
+            dequeue();
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            exit(0);
+        default:
+            printf("Wrong choice");
+        }
+    } while (1);
 
     return 0;
+}
+
+// Function to initialize the stacks
+void initialize()
+{
+    top1 = top2 = -1;
+}
+
+// Function to push an element onto the stack
+void push(int stack[], int *top, int data)
+{
+    stack[++(*top)] = data;
+}
+
+// Function to pop an element from the stack
+int pop(int stack[], int *top)
+{
+    return stack[(*top)--];
+}
+
+// Function to add an element into the queue using stacks
+void enqueue()
+{
+    int data;
+    printf("Enter data to enqueue: ");
+    scanf("%d", &data);
+    push(stack1, &top1, data);
+    itemCount++;
+}
+
+// Function to delete an element from the queue using stacks
+void dequeue()
+{
+    int i;
+
+    for (i = 0; i < itemCount; i++)
+    {
+        push(stack2, &top2, pop(stack1, &top1));
+    }
+
+    pop(stack2, &top2);
+    itemCount--;
+
+    for (i = 0; i < itemCount; i++)
+    {
+        push(stack1, &top1, pop(stack2, &top2));
+    }
+}
+
+// Function to display the elements in the queue
+void display()
+{
+    int i;
+
+    for (i = 0; i <= top1; i++)
+    {
+        printf(" %d ", stack1[i]);
+    }
 }
