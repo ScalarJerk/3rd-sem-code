@@ -5,11 +5,13 @@ ii.) Add two matrices
 iii.) Read a square matrix and check 
 if it a magic square or not.*/ 
   
-  #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define MAX_SIZE 10
+#define MAX 10
 
-void multiplyMatrices(int A[][MAX_SIZE], int B[][MAX_SIZE], int C[][MAX_SIZE], int rowsA, int colsA, int colsB) {
+void multiplyMatrices(int A[][MAX], int B[][MAX], int C[][MAX], int rowsA, int colsA, int colsB) {
     for (int i = 0; i < rowsA; i++) {
         for (int j = 0; j < colsB; j++) {
             C[i][j] = 0;
@@ -20,15 +22,9 @@ void multiplyMatrices(int A[][MAX_SIZE], int B[][MAX_SIZE], int C[][MAX_SIZE], i
     }
 }
 
-void addMatrices(int A[][MAX_SIZE], int B[][MAX_SIZE], int C[][MAX_SIZE], int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            C[i][j] = A[i][j] + B[i][j];
-        }
-    }
-}
 
-int isMagicSquare(int matrix[][MAX_SIZE], int n) {
+
+int isMagicSquare(int matrix[][MAX], int n) {
     int sumDiag1 = 0, sumDiag2 = 0;
 
     for (int i = 0; i < n; i++) {
@@ -53,7 +49,7 @@ int isMagicSquare(int matrix[][MAX_SIZE], int n) {
 }
 
 int main() {
-    int A[MAX_SIZE][MAX_SIZE], B[MAX_SIZE][MAX_SIZE], C[MAX_SIZE][MAX_SIZE];
+    int A[MAX][MAX], B[MAX][MAX], C[MAX][MAX];
     int rowsA, colsA, rowsB, colsB;
 
     printf("Enter the number of rows and columns for matrix A: ");
@@ -89,36 +85,6 @@ int main() {
         }
         printf("\n");
     }
-
-    if (rowsA != rowsB || colsA != colsB) {
-        printf("Matrix addition is not possible.\n");
-        return 0;
-    }
-
-    addMatrices(A, B, C, rowsA, colsA);
-    printf("Result of matrix addition:\n");
-    for (int i = 0; i < rowsA; i++) {
-        for (int j = 0; j < colsA; j++) {
-            printf("%d ", C[i][j]);
-        }
-        printf("\n");
-    }
-
-    int n;
-    printf("Enter the size of the square matrix for magic square check: ");
-    scanf("%d", &n);
-
-    printf("Enter elements for the square matrix:\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%d", &A[i][j]);
-        }
-    }
-
-    if (isMagicSquare(A, n))
-        printf("The matrix is a magic square.\n");
-    else
-        printf("The matrix is not a magic square.\n");
 
     return 0;
 }

@@ -32,7 +32,7 @@ int main() {
     // Create matrix C
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
-            C[i][j] = (A[i][j] > B[i][j]) ? A[i][j] : B[i][j];
+            C[i][j] = (A[i][j] > B[i][j]) ? A[i][j] : B[i][j];  //is a > b?
         }
     }
 
